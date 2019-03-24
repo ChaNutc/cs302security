@@ -14,22 +14,23 @@ public class ass1_5909610627 {
 		sBox = new ArrayList<>();
 		w = new ArrayList<>();
 		sc = new Scanner(System.in);
+		//System.out.println("key = Thats my Kung Fu");
 		System.out.print("Enter Input Key:");
-		String key = "Thats my Kung Fu";//sc.nextLine();
+		String key = sc.nextLine();
 		String text = "54 68 61 74 73 20 6D 79 20 4B 75 6E 67 20 46 75";
 		System.out.println("Key in Hex: "+text);
 		//for(int i=0;i<key.length();i++) {
 			//System.out.println(key.getBytes());
 		String a = Arrays.toString(key.getBytes());
-			System.out.println(Arrays.toString(key.getBytes()));
+			//System.out.println(Arrays.toString(key.getBytes()));
 		//}
 		String test1 = a.replace("[", "");
 		String test2 = test1.replace("]", "");
 		test2 = test2.replaceAll(" ", "");
 		String[] temp = test2.split(",");
-		for(int i=0;i<temp.length;i++) {
+		/*for(int i=0;i<temp.length;i++) {
 			System.out.print(Integer.toHexString(Integer.parseInt(temp[i]))+" ");
-		}
+		}*/
 		System.out.println();
 		
 		//System.out.println(temp.length);
@@ -86,20 +87,22 @@ public class ass1_5909610627 {
 			System.out.println(fullBinary(Integer.toBinaryString(Integer.parseInt(w.get(w.size()-4).get(3)))));*/
 			
 		}
-		/*System.out.println();
+		System.out.println();
 		for(int i=0;i<w.size();i++) {
 			if(i%4==0) {
 				if(i==0) {
-					System.out.print("k"+i/4+"\t");
+					System.out.print("k"+i/4+":\t");
 				}else{
 					System.out.println();
-					System.out.print("k"+i/4+"\t");
+					System.out.print("k"+i/4+":\t");
 				}
 				
+			}for (int j=0;j<w.get(i).size();j++) {
+				System.out.print(w.get(i).get(j)+" ");
 			}
-			System.out.print(w.get(i));
 			
-		}*/
+			
+		}
 		//System.out.println(w);
 	}
 	public void next() {
@@ -107,7 +110,8 @@ public class ass1_5909610627 {
 		String text="";
 		for(int j=0;j<3;j++) {
 			for(int i=0;i<4;i++) {
-				text = xor(fullBinary(Integer.toBinaryString(Integer.parseInt(w.get(w.size()-1).get(i),16))), fullBinary(Integer.toBinaryString(Integer.parseInt(w.get(w.size()-5).get(i),16))));
+				//System.out.println(w.get(w.size()-1).get(i)+"+"+w.get(w.size()-4).get(i));
+				text = xor(fullBinary(Integer.toBinaryString(Integer.parseInt(w.get(w.size()-1).get(i),16))), fullBinary(Integer.toBinaryString(Integer.parseInt(w.get(w.size()-4).get(i),16))));
 				wn.add(fullHex(Integer.toHexString(Integer.parseInt(text,2))));
 			}
 			w.add(wn);
@@ -153,20 +157,7 @@ public class ass1_5909610627 {
 			}
 			brcon+=Integer.toBinaryString(Integer.parseInt(rcon[w.size()/4-1], 16));
 			//System.out.println(Integer.toBinaryString(Integer.parseInt(w.get(w.size()-4).get(0), 16)));
-			String brot="";
-			for(int i=0;i<8-Integer.toBinaryString(Integer.parseInt(w.get(w.size()-4).get(0), 16)).length();i++) {
-				brot+="0";
-			}
-			brot+=Integer.toBinaryString(Integer.parseInt(w.get(w.size()-4).get(0), 16));
-			/*String xor="";
-			for(int i=0;i<8;i++) {
-				if((brcon.charAt(i)+"").equals(brot.charAt(0)+"")) {
-					xor+="0";
-				}else {
-					xor+="1";
-				}
-			}*/
-			rot.set(0,xor(brcon,brot));
+			rot.set(0,xor(brcon,fullBinary(Integer.toBinaryString(Integer.parseInt(rot.get(0),16)))));
 			rot.set(1,fullBinary(Integer.toBinaryString(Integer.parseInt(rot.get(1),16))));
 			rot.set(2,fullBinary(Integer.toBinaryString(Integer.parseInt(rot.get(2),16))));
 			rot.set(3,fullBinary(Integer.toBinaryString(Integer.parseInt(rot.get(3),16))));
@@ -196,11 +187,6 @@ public class ass1_5909610627 {
 	}
 	public String xor(String a,String b) {
 		String xor="";
-		System.out.println(Integer.toHexString(Integer.parseInt(a,2)));
-		System.out.println(a);
-		System.out.println(Integer.toHexString(Integer.parseInt(b,2)));
-		System.out.println(b);
-		
 		for(int i=0;i<8;i++) {
 			if((a.charAt(i)+"").equals(b.charAt(i)+"")) {
 				xor+="0";
@@ -208,8 +194,6 @@ public class ass1_5909610627 {
 				xor+="1";
 			}
 		}
-		System.out.println(xor);
-		System.out.println();
 		return xor;
 	}
 	public String fullBinary(String a) {
